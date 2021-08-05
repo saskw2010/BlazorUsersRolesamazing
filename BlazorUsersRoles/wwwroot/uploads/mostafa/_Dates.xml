@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="_Dates" conflictDetection="overwriteChanges" label="Dates" plugIn="eZee.Data.AnnotationPlugIn" handler="eZee.Rules._DatesBusinessRules" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"n_Dates"."autoid" "autoid"
+	,"n_Dates"."ModifiedBy" "ModifiedBy"
+	,"n_Dates"."d1" "d1"
+	,"n_Dates"."d2" "d2"
+	,"n_Dates"."CreatedBy" "CreatedBy"
+	,"n_Dates"."CreatedOn" "CreatedOn"
+	,"n_Dates"."ModifiedOn" "ModifiedOn"
+	,"n_Dates"."usercashid" "usercashid"
+from "dbo"."_Dates" "n_Dates"
+]]></text>
+    </command>
+    <command id="autoidIdentityCommand" type="Text" event="Inserted">
+      <text><![CDATA[select @@identity]]></text>
+      <output>
+        <fieldOutput fieldName="autoid" />
+      </output>
+    </command>
+  </commands>
+  <fields>
+    
+    <field name="d1" type="DateTime" allowNulls="false" label="D1" showInSummary="true" />
+    <field name="d2" type="DateTime" allowNulls="false" label="D2" showInSummary="true" />
+     <field name="usercashid" type="Int64" default="((1))" label="Usercashid" allowNulls="false">
+      <items style="DropDownList">
+        <item value="1" text="With Open Balance" />
+        <item value="2" text="Without Open Balance" />
+      </items>
+    </field>
+	<field name="autoid" type="Int64" allowNulls="false" isPrimaryKey="true" label="Autoid" readOnly="true" />
+    <field name="ModifiedBy" type="String" allowNulls="false" label="Modified By" length="50" showInSummary="true" />
+	<field name="CreatedBy" type="String" label="Created By" length="50" showInSummary="true" />
+    <field name="CreatedOn" type="DateTime" label="Created On" showInSummary="true" />
+    <field name="ModifiedOn" type="DateTime" label="Modified On" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="BalanceSheet" filter="ModifiedBy = @BusinessRules_UserName">
+      <dataFields>
+        <dataField fieldName="ModifiedBy" columns="50" />
+        <dataField fieldName="d1" columns="10" />
+        <dataField fieldName="d2" columns="10" />
+        <dataField fieldName="ModifiedOn" columns="10" />
+        <dataField fieldName="usercashid" columns="15" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review Dates">
+    
+      <categories>
+        <category id="c1" headerText="BalanceSheet" newColumn="true">
+     
+          <dataFields>
+            <dataField fieldName="ModifiedBy" columns="50" />
+            <dataField fieldName="d1" columns="10" />
+            <dataField fieldName="d2" columns="10" />
+            <dataField fieldName="CreatedBy" columns="50" />
+            <dataField fieldName="CreatedOn" columns="10" />
+            <dataField fieldName="ModifiedOn" columns="10" />
+            <dataField fieldName="usercashid" columns="15" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+    <view id="createForm1" type="Form" commandId="command1" label="New BalanceSheet">
+     
+      <categories>
+        <category id="c1" headerText="New BalanceSheet" newColumn="true">
+         
+          <dataFields>
+            <dataField fieldName="ModifiedBy" columns="50" />
+            <dataField fieldName="d1" columns="10" />
+            <dataField fieldName="d2" columns="10" />
+            <dataField fieldName="CreatedBy" columns="50" />
+            <dataField fieldName="CreatedOn" columns="10" />
+            <dataField fieldName="ModifiedOn" columns="10" />
+            <dataField fieldName="usercashid" columns="15" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+      <action id="a2" commandName="Edit" />
+      <action id="a3" commandName="Delete" />
+      <action id="a6" />
+      <action id="a7" commandName="New" commandArgument="grid1" />
+      <action id="a8" commandName="Duplicate" commandArgument="createForm1" />
+      <action id="a9" />
+      <action id="a10" commandName="BatchEdit" />
+      <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a1" commandName="Edit" />
+      <action id="a2" commandName="Delete" />
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a7" whenLastCommandName="New" commandName="Insert" />
+      <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+      <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+      <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+      <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      <action commandName="Search" whenLastCommandName="New" id="a100" />
+    </actionGroup>
+    <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+      <action id="a1" commandName="New" commandArgument="grid1" cssClass="NewIcon" />
+    </actionGroup>
+    <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+      <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+      <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a6" commandName="Import" commandArgument="createForm1" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1"  />
+     
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+      <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag9" scope="ActionColumn">
+      <action id="a1" commandName="Edit" commandArgument="grid1" />
+      <action commandName="SQL" headerText="UntilNow"  id="a109">
+        <data><![CDATA[ 
+		set @d2=getdate()
+		update _Dates set d2=dateadd(day,0,getdate()) where autoid=@autoid
+		exec GetHierarchicalFinalReport @autoid,@usercashid,@d1,@d2
+ ]]></data>
+      </action>
+      <action commandName="SQL" headerText="withperiod"  id="a109">
+        <data><![CDATA[ 
+		exec GetHierarchicalFinalReport @autoid,@usercashid,@d1,@d2
+ ]]></data>
+      </action>
+	 
+	  
+    </actionGroup>
+  </actions>
+  <businessRules>
+    <rule id="r100" commandName="Select " view="grid1" type="Sql" phase="Before"><![CDATA[delete from _Dates   where   Modifiedon=dateadd(day,-1,getdate()) and    ModifiedBy = @BusinessRules_UserName
+]]></rule>
+    <rule id="r101" commandName="Insert|Update" type="Sql" phase="After"><![CDATA[delete from GLblnrp1 where autoid=@autoid
+exec GetHierarchicalFinalReport @autoid,@usercashid,@d1,@d2]]></rule>
+    <rule id="r102" commandName="Delete" type="Sql" phase="After"><![CDATA[delete from GLblnrp1 where autoid=@autoid]]></rule>
+  </businessRules>
+</dataController>
