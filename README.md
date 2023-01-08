@@ -35,3 +35,4 @@ graph TD;
 ```
 
 This expression uses `\$` to display a dollar sign: $\sqrt{\$4}$
+[MostafelnagarLINKEDIN2023-01-01.pdf](https://github.com/saskw2010/BlazorUsersRolesamazing/files/10368991/MostafelnagarLINKEDIN2023-01-01.pdf)
