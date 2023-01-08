@@ -26,3 +26,12 @@ One way to use the AuthorizeView component in Razor pages is to wrap it around t
   
 This will display the "Welcome!" message to users who are logged in, and the "Sorry" message to users who are not logged in. You can also use the Policy attribute to specify which users have access to the content, based on their claims or roles.
 
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
+This expression uses `\$` to display a dollar sign: $\sqrt{\$4}$
