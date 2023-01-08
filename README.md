@@ -1,4 +1,5 @@
-# BlazorUsersRolesamazing
+# Blazor Users Roles Amazing
+##Mostafa Elnagar
 
 #Good solution in razor pages authorizeview
 Razor Pages is a framework for building web applications with ASP.NET Core. It is based on the Model-View-Controller (MVC) pattern, and provides a convenient way to build web pages that display data, accept input, and perform logic. Razor pages authorizeview is a Razor component that can be used to display content based on the user's authorization status.
