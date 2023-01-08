@@ -36,6 +36,9 @@ graph TD;
 
 This expression uses `\$` to display a dollar sign: $\sqrt{\$4}$
 
-'''pdf
-<h1>Mostaf Elnagar (LINKEDIN) Profile On 2023-01-01</h1>[Click_Here_pdf](https://github.com/saskw2010/BlazorUsersRolesamazing/files/10368991/MostafelnagarLINKEDIN2023-01-01.pdf)
-'''
+###
+<h1>
+    Mostaf Elnagar (LINKEDIN) Profile On 2023-01-01[Click_Here_pdf](https://github.com/saskw2010/BlazorUsersRolesamazing/files/10368991/MostafelnagarLINKEDIN2023-01-01.pdf)
+ 
+</h1>
+
